@@ -14,6 +14,7 @@ class MoviesCollectionViewController: UICollectionViewController {
     
     private let webService = WebServices()
     var movies = [Movie]()
+    var numberOfPage = 1
     
     @IBOutlet var myCollectionView: UICollectionView!
     
@@ -51,7 +52,7 @@ class MoviesCollectionViewController: UICollectionViewController {
     
 
     func getMovies(){
-        webService.getMovies { movies in
+        webService.getMovies(numberOfPage: self.numberOfPage) { movies in
             self.movies = movies
             self.myCollectionView.reloadData()
         }

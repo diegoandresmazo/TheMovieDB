@@ -15,9 +15,12 @@ class ViewController: UIViewController {
     let movieFacade = WebServices()
     var moviesList = [Movie]()
     var list: List!
+    var numberOfPage = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
@@ -30,11 +33,13 @@ class ViewController: UIViewController {
         self.list.listDelegate = self
         self.view.addSubview((self.list as! UIView))
         
-        movieFacade.getMovies { [weak self](movies) in
+        movieFacade.getMovies(numberOfPage: self.numberOfPage) { [weak self](movies) in
             
         self?.moviesList = movies
         self?.list.reloadData()
         }
+        
+        numberOfPage = numberOfPage + 1
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +52,21 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: MoviesListDelegate{
+    
+    
+    func willDisplay(indexPath: IndexPath) {
+        
+        if indexPath.row == moviesList.count-1 {
+           
+            movieFacade.getMovies(numberOfPage: self.numberOfPage) { [weak self](movies) in
+                
+                self?.moviesList.append(contentsOf: movies)
+                self?.list.reloadData()
+           }
+        numberOfPage = numberOfPage + 1
+        }
+    }
+    
     func numberOfItems() -> Int {
         return moviesList.count
     }

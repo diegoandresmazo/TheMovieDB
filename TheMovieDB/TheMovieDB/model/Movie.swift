@@ -17,8 +17,10 @@ class Movie {
     var popularity: Double
     var imageLink: String?
     var imageMovie: UIImage?
+    var releaseDate: String?
+    var resume: String?
     
-    init(id:Int, voteAverage:Double, title:String, popularity:Double, imageLink:String, imageMovie:UIImage) {
+    init(id:Int, voteAverage:Double, title:String, popularity:Double, imageLink:String, imageMovie:UIImage, releaseDate: String, resume: String) {
         
         self.id = id
         self.voteAverage = voteAverage
@@ -26,6 +28,8 @@ class Movie {
         self.popularity = popularity
         self.imageLink = "https://image.tmdb.org/t/p/w154/" + imageLink
         self.imageMovie = imageMovie
+        self.resume = resume
+        self.releaseDate = releaseDate
     }
     
 }

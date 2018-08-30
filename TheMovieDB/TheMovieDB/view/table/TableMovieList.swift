@@ -35,6 +35,10 @@ extension TableMovieList: UITableViewDataSource{
         
         return cell as! UITableViewCell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        listDelegate?.willDisplay(indexPath: indexPath)
+    }
 }
 
 extension TableMovieList: UITableViewDelegate{

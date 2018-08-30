@@ -13,19 +13,21 @@ import AlamofireImage
 class WebServices {
 
 
-private let linkRequest = "https://api.themoviedb.org/3/movie/top_rated?page=1&language=en-US&api_key=1f4d7de5836b788bdfd897c3e0d0a24b"
+private let linkRequest = "https://api.themoviedb.org/3/movie/top_rated?api_key=1f4d7de5836b788bdfd897c3e0d0a24b&language=en-US&page="
     
     
-    func getMovies(completionHandler: @escaping ([Movie]) -> Void) {
-            
-            var movies = [Movie]()
+    func getMovies(numberOfPage: Int, completionHandler: @escaping ([Movie]) -> Void) {
         
-             Alamofire.request(linkRequest).responseJSON { response in
+        
+           let completeLink = self.linkRequest + String (numberOfPage)
+        
+           var movies = [Movie]()
+        
+             Alamofire.request(completeLink).responseJSON { response in
                 
                 if let json = response.result.value {
                 if let dictionary = json as? [String: Any] {
-    
-                //Resultados
+                    
                 if let dictionaryResults = dictionary["results"] as? [[String: Any]] {
             
                             for object in dictionaryResults{
@@ -35,17 +37,16 @@ private let linkRequest = "https://api.themoviedb.org/3/movie/top_rated?page=1&l
                                 let title = object["title"] as! String
                                 let popularity = object["popularity"] as! Double
                                 let imageLink = object["poster_path"] as! String
+                                let release = object["release_date"] as! String
+                                let resume = object["overview"] as! String
                                 
-                                let movie = Movie(id: id, voteAverage: voteAverage, title: title, popularity: popularity, imageLink: imageLink, imageMovie: #imageLiteral(resourceName: "Movie_night"))
+                                let movie = Movie(id: id, voteAverage: voteAverage, title: title, popularity: popularity, imageLink: imageLink, imageMovie: #imageLiteral(resourceName: "Movie_night"), releaseDate: release, resume: resume)
     
                                 movies.append(movie)
-                                
                             }
-                   
                         completionHandler(movies)
-                    
                     }
-                 }
+             }
             }
         }
     }

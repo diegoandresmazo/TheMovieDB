@@ -13,12 +13,11 @@ class MoviesTableViewController: UITableViewController {
     @IBOutlet var table: UITableView!
     private let webService = WebServices()
     var movies = [Movie]()
-
+    var numberOfPage = 1
+    
     override func viewDidLoad() {
         getMovies()
-        super.viewDidLoad()
-        
-        
+        super.viewDidLoad()   
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,7 +53,7 @@ class MoviesTableViewController: UITableViewController {
     
     func getMovies(){
         
-        webService.getMovies { movies in
+        webService.getMovies(numberOfPage: self.numberOfPage) { movies in
             
             self.movies = movies
             self.table.reloadData()

@@ -14,6 +14,8 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var detailImage: UIImageView!
     @IBOutlet weak var detailTitle: UILabel!
+    @IBOutlet weak var detailRelease: UILabel!
+    @IBOutlet weak var detailResume: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +28,11 @@ class DetailViewController: UIViewController {
     
     func prepareMovie(movie: Movie!){
         let image_path = movie.imageLink
-        
         if let imageURL = URL(string: image_path!){
             detailImage.af_setImage(withURL: imageURL)
         }
         detailTitle.text = movie.title
+        detailRelease.text = movie.releaseDate
+        detailResume.text = movie.resume
     }
-    
 }
