@@ -9,6 +9,7 @@
 import UIKit
 
 class TableMovieList: UITableView, List {
+    
     var listDelegate: MoviesListDelegate?
     
     init(){

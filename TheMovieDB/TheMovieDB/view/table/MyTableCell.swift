@@ -12,4 +12,8 @@ class MyTableCell: UITableViewCell, ListCell {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var movieImage: UIImageView!
+    
+    override func prepareForReuse() {
+        print("Prepare for reuse")
+    }
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 protocol MoviesListDelegate: class {
-    
     func numberOfItems() -> Int
     func configureCell(cell: ListCell, atIndexPath: IndexPath)
     func didSelectRowAt(indexPath: IndexPath)
